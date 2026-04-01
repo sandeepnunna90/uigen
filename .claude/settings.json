@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"^[^/]*\\\\.\\(tsx|ts\\)$|app/|actions/|lib/\")",
+      "Bash(npm run:*)",
+      "Bash(npx vitest:*)"
+    ]
+  }
+}
