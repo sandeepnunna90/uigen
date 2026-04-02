@@ -66,7 +66,17 @@ export function MainContent({ user, project }: MainContentProps) {
                       setActiveView(v as "preview" | "code")
                     }
                   >
-                    <TabsList className="bg-white/60 border border-neutral-200/60 p-0.5 h-9 shadow-sm">
+                    <TabsList
+                      className="bg-white/60 border border-neutral-200/60 p-0.5 h-9 shadow-sm"
+                      onPointerDown={() => {
+                        // When the preview iframe has focus, clicking outside it requires
+                        // two clicks in some browsers — first to return focus, then to click.
+                        // Blurring the active iframe element first ensures the tab click registers.
+                        if (document.activeElement instanceof HTMLIFrameElement) {
+                          document.activeElement.blur();
+                        }
+                      }}
+                    >
                       <TabsTrigger value="preview" className="data-[state=active]:bg-white data-[state=active]:text-neutral-900 data-[state=active]:shadow-sm text-neutral-600 px-4 py-1.5 text-sm font-medium transition-all">Preview</TabsTrigger>
                       <TabsTrigger value="code" className="data-[state=active]:bg-white data-[state=active]:text-neutral-900 data-[state=active]:shadow-sm text-neutral-600 px-4 py-1.5 text-sm font-medium transition-all">Code</TabsTrigger>
                     </TabsList>
